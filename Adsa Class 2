@@ -1,0 +1,40 @@
+#include<iostream>
+#include<time.h>
+#include<stdlib.h>
+#include<fstream>
+using namespace std;
+int main()
+{
+	ofstream cout("testcase1.txt");
+	int n;
+	n=50;
+	while(n<10000)
+	{
+		int a[n];
+		int i;
+		for(i=0;i<n;i++)
+		{
+			a[i]=rand()%n;
+		}
+		clock_t begin =clock();
+		int index;
+		int position;
+		for(i=0;i<n;i++)
+		{
+			index=a[i];
+			position=i;
+			while(position>0 && a[position-1]>index)
+			{
+				a[position]=a[position-1];
+				position--;
+			}
+			a[position]=index;
+		}
+		clock_t end=clock();
+		double timespend =(double)(end-begin)/CLOCKS_PER_SEC;
+		cout<<n<<" ";
+		cout<<timespend;
+		cout<<endl;
+		n=n+50;
+	}
+}
