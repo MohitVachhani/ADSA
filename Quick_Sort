@@ -1,0 +1,46 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+int a[100];
+int result1(int low,int high)
+{
+	int p=a[high];
+	int i=low-1;
+	int j;
+	for(j=low;j<=high-1;j++)
+	{
+		if(a[j]<=p)
+		{
+			i++;
+			swap(a[i],a[j]);
+		}
+	}
+	swap(a[i+1],a[high]);
+	return i+1;
+}
+int result2(int low,int high)
+{
+	if(low<high)
+	{
+		int pos=result1(low,high);
+		result2(low,pos-1);
+		result2(pos+1,high);
+	}
+}
+int main()
+{
+	int n;
+	cin>>n;
+	int i;
+	for(i=0;i<n;i++)
+		a[i]=rand()%100;
+	cout<<"Unsorted array:"<<endl;
+	for(i=0;i<n;i++)
+		cout<<a[i]<<" ";
+	cout<<endl;
+	result2(0,n-1);//quick sort function was called
+	cout<<"Sorted array"<<endl;
+	for(i=0;i<n;i++)
+		cout<<a[i]<<" ";
+		
+}
