@@ -1,0 +1,70 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+int a[16];
+int count=0;
+void result(int low,int high,int mid)
+{
+	int i,j,k,answer[16];
+	i=low;
+	k=low;
+	j=mid+1;
+	while(i<=mid && j<=high)
+	{
+		if(a[i]<a[j])
+		{
+			answer[k]=a[i];
+			k++;
+			i++;
+			count++;
+		}
+		else
+		{
+			answer[k]=a[j];
+            k++;
+            j++;
+			count++;
+		}
+	}
+	while (i<=mid)
+    {
+        answer[k]=a[i];
+        k++;
+        i++;
+    	count++;
+	}
+    while (j <= high)
+    {
+        answer[k]=a[j];
+        k++;
+        j++;
+    	count++;
+	}
+	for (i = low; i < k; i++)
+    {
+        a[i]=answer[i];
+    }
+}
+void result1(int low,int high)
+{
+	int mid;
+	if(low<high)
+	{
+		mid=(low+high)>>1;
+		result1(low,mid);
+		result1(mid+1,high);
+		result(low,high,mid);
+	}
+}
+int main()
+{
+	int i;
+	for(i=0;i<16;i++)
+		a[i]=rand()%16;// random numbers are generated
+	count=0;
+	result1(0,15);
+	cout<<count<<endl;
+	for(i=0;i<16;i++)
+		cout<<a[i]<<" ";
+	
+}
